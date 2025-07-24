@@ -41,8 +41,6 @@ CREATE TABLE IF NOT EXISTS donation_post (
     category VARCHAR(40) NOT NULL,
     pickup_location_latitude INT NOT NULL,
     pickup_location_longitude INT NOT NULL,
-    pickup_city VARCHAR(40) NOT NULL,
-    item_condition VARCHAR(40) NOT NULL,
     amount INT NOT NULL,
     measurement_unit VARCHAR(40) NOT NULL,
     description VARCHAR(400),
