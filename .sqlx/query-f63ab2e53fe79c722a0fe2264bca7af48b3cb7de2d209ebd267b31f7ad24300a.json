@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        INSERT INTO donation_post (\n            id, donator_entity_id, item_name, category,\n            pickup_location_latitude, pickup_location_longitude,\n            pickup_address, pickup_city, pickup_location_note,\n            amount, measurement_unit, description, created_on,\n            deleted_on, completed_on\n        )\n        VALUES (\n            (SELECT IFNULL(MAX(id), 0) + 1 FROM Entity),\n            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?\n        )\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 14
+    },
+    "nullable": []
+  },
+  "hash": "f63ab2e53fe79c722a0fe2264bca7af48b3cb7de2d209ebd267b31f7ad24300a"
+}

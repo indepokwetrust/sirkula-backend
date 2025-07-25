@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        INSERT INTO entity (\n            id, display_name, password_hash, entity_type,\n            contact_number, email, website_url,\n            created_on, deleted_on\n        )\n        VALUES (\n            (SELECT IFNULL(MAX(id), 0) + 1 FROM Entity),\n            ?, ?, ?, ?, ?, ?, ?, ?\n        )\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 8
+    },
+    "nullable": []
+  },
+  "hash": "0ab0b7d7355de1e9b8b92966be8882cb6be5dfaded3324c81ead92468e390b49"
+}

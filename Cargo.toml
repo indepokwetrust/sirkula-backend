@@ -1,3 +1,6 @@
+[workspace]
+members = ["schema-gen"]
+
 [package]
 name = "sirkula-backend"
 version = "0.1.0"
@@ -7,10 +10,6 @@ default-run = "backend"
 [[bin]]
 name = "backend"
 path = "src/main.rs"
-
-[[bin]]
-name = "initdb"
-path = "src/sqlite_init.rs"
 
 [dependencies]
 axum = "0.8.4"

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        INSERT INTO profile_image (\n        id, entity_id, image_url\n        )\n        VALUES (\n            (SELECT IFNULL(MAX(id), 0) + 1 FROM Entity),\n            ?, ?\n        )\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "a0bc77f74d5708ae29268dc80a79763981026f29ea34c4e3999cb8a96f0aaf0e"
+}
