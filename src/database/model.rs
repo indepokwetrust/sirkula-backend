@@ -1,3 +1,5 @@
+use core::fmt;
+
 use chrono::NaiveDateTime;
 
 pub struct Entity {
@@ -78,15 +80,24 @@ impl MeasurementUnit {
     }
 }
 
+#[derive(Debug)]
+pub struct CastingError;
+impl std::error::Error for CastingError {}
+impl fmt::Display for CastingError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Unable to cast safely")
+    }
+}
+
 pub struct Varchar<const N: usize>(String);
 impl<const N: usize> TryFrom<String> for Varchar<N> {
-    type Error = ();
+    type Error = CastingError;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         if value.len() <= N {
             Ok(Varchar::<N>(value))
         } else {
-            Err(())
+            Err(CastingError)
         }
     }
 }
@@ -99,20 +110,24 @@ impl<const N: usize> From<Varchar<N>> for String {
 
 pub struct U63(i64);
 impl TryFrom<i64> for U63 {
-    type Error = ();
+    type Error = CastingError;
 
     fn try_from(value: i64) -> Result<Self, Self::Error> {
-        if value >= 0 { Ok(U63(value)) } else { Err(()) }
+        if value >= 0 {
+            Ok(U63(value))
+        } else {
+            Err(CastingError)
+        }
     }
 }
 impl TryFrom<u64> for U63 {
-    type Error = ();
+    type Error = CastingError;
 
     fn try_from(value: u64) -> Result<Self, Self::Error> {
         if value <= 0x7fffffffffffffff {
             Ok(U63(value.try_into().unwrap()))
         } else {
-            Err(())
+            Err(CastingError)
         }
     }
 }

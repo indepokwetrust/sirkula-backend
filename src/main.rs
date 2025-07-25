@@ -1,19 +1,7 @@
-use axum::Router;
-use serde::Serialize;
-use sqlx::{Pool, Sqlite, prelude::FromRow, sqlite::SqlitePoolOptions};
+use axum::{Router, routing::post};
+use sirkula_backend::{AppState, api::register};
+use sqlx::sqlite::SqlitePoolOptions;
 use std::net::SocketAddr;
-
-#[derive(Clone)]
-struct AppState {
-    db: Pool<Sqlite>,
-}
-
-#[derive(Serialize, FromRow)]
-struct Entity {
-    id: i64,
-    display_name: String,
-    password_hash: String,
-}
 
 #[tokio::main]
 async fn main() {
@@ -24,9 +12,12 @@ async fn main() {
     );
 
     let pool = SqlitePoolOptions::new().connect(&db_uri).await.unwrap();
-    let state = AppState { db: pool };
+    let state = AppState::new(pool);
 
-    let app = Router::new().with_state(state);
+    let api_route = Router::new().route("/entity/register", post(register));
+    // .route("/entity/login", post(login));
+
+    let app = Router::new().nest("/api", api_route).with_state(state);
 
     let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
