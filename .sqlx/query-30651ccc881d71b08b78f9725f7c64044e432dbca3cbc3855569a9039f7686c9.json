@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        INSERT INTO donation_post_image (\n        id, donation_post_id, image_url\n        )\n        VALUES (\n            (SELECT IFNULL(MAX(id), 0) + 1 FROM Entity),\n            ?, ?\n        )\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "30651ccc881d71b08b78f9725f7c64044e432dbca3cbc3855569a9039f7686c9"
+}

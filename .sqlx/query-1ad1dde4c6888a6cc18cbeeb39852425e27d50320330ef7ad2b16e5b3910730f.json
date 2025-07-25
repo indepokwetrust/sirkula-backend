@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        INSERT INTO request (\n            id, requester_entity_id, donation_post_id, intent,\n            created_on, deleted_on, accepted_on, completed_on\n        )\n        VALUES (\n            (SELECT IFNULL(MAX(id), 0) + 1 FROM Entity),\n            ?, ?, ?, ?, ?, ?, ?\n        )\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 7
+    },
+    "nullable": []
+  },
+  "hash": "1ad1dde4c6888a6cc18cbeeb39852425e27d50320330ef7ad2b16e5b3910730f"
+}
